@@ -8,7 +8,7 @@
 </head>
 <body>
     
-
+    <h1 id="data"></h1>
 
     <!-- JQuery -->
     <script
@@ -26,10 +26,17 @@
         referrerpolicy="no-referrer"
     ></script>
     <script>
-        var socket = io.connect('http://localhost:3000');
-        socket.on('connect', function(data) {
-            socket.emit('join', 'Hello World from client');
-        });
+        // Socket variable
+        let socket = io.connect('http://localhost:3000');
+        
+        // socket.on('connect', function(data) {
+        //     socket.emit('join', 'Hello World from client');
+        // });
+
+        // Getting Message
+        socket.on('messages', function(messages) {
+          $("#data").append(`${messages}<br>`);
+        })
         </script>
 </body>
 </html>

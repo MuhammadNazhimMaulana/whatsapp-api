@@ -1,5 +1,5 @@
 const express = require('express');
-const qrcode = require('qrcode-terminal');
+const qrcode = require('qrcode');
 const http = require('http');
 const { Server }  = require('socket.io');
 
@@ -54,18 +54,18 @@ client.on('ready', () => {
     console.log('READY');
 });
 
-// Qr Code
-client.on('qr', (qr) => {
-    // NOTE: This event will not be fired if a session is specified.
-    qrcode.generate(qr, {small: true});
-});
-
 // Socket .io
 io.on('connection', (socket) => {
     console.log('Klien Terkoneksi...');
-    socket.on('join', function(data) {
-      console.log(data);
-      socket.emit('messages', 'Hello dari server');
+    socket.emit('messages', 'Hello dari server');
+});
+
+// Qr Code
+client.on('qr', (qr) => {
+    // NOTE: This event will not be fired if a session is specified.
+    io.emit('messages', 'qr');
+    qrcode.toDataURL(qr, (err, url) => {
+        io.emit('messages', url);
     });
 });
 
