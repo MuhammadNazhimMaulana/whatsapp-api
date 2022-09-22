@@ -3,6 +3,9 @@ const qrcode = require('qrcode-terminal');
 const http = require('http');
 const { Server }  = require('socket.io');
 
+// WA Web
+const { Client, LocalAuth } = require('whatsapp-web.js');
+
 // Env
 require('dotenv').config();
 
@@ -21,9 +24,10 @@ app.get("/", (req, res) => {
     res.sendFile("index.html", { root: __dirname + "/public" })
 })
 
-const { Client, LocalAuth } = require('whatsapp-web.js');
+
 // const { Client, Location, List, Buttons, LocalAuth} = require('./index');
 
+// Use the saved values
 const client = new Client({
     puppeteer: { headless: true },
     authStrategy: new LocalAuth()
@@ -35,9 +39,11 @@ client.on('loading_screen', (percent, message) => {
     console.log('LOADING SCREEN', percent, message);
 });
 
+// Save session values to the file upon successful auth
 client.on('authenticated', () => {
-    console.log('AUTHENTICATED');
+    console.log('Authentucated')
 });
+ 
 
 client.on('auth_failure', msg => {
     // Fired if session restore was unsuccessful
@@ -48,10 +54,12 @@ client.on('ready', () => {
     console.log('READY');
 });
 
+// Qr Code
 client.on('qr', (qr) => {
     // NOTE: This event will not be fired if a session is specified.
     qrcode.generate(qr, {small: true});
 });
+
 // Socket .io
 io.on('connection', (socket) => {
     console.log('Klien Terkoneksi...');
