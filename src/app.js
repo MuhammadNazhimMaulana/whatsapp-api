@@ -1,4 +1,6 @@
 const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
+const path = require('path');
 const qrcode = require('qrcode');
 const http = require('http');
 const { Server }  = require('socket.io');
@@ -14,18 +16,30 @@ const app = express();
 const server = http.createServer(app)
 const io = new Server(server)
 
+// Setup ejs
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'))
+
+// Use ExpressLayout
+app.use(expressLayouts);
+
 app.use(express.json());
+app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }))
 
 // Method       : GET /
 // Access       : public
 // Description  : Tampilan Awal
-app.get("/", (req, res) => {
-    res.sendFile("index.html", { root: __dirname + "/public" })
-})
+// app.get("/", (req, res) => {
+//     res.sendFile("index.html", { root: __dirname + "/public" })
+// });
 
-
-// const { Client, Location, List, Buttons, LocalAuth} = require('./index');
+app.get('/', (req, res) => {
+    res.render('index', {
+        layout: 'layouts/main',
+        title: 'Halaman Home'
+    });
+});
 
 // Use the saved values
 const client = new Client({
@@ -65,7 +79,7 @@ client.on('qr', (qr) => {
     // NOTE: This event will not be fired if a session is specified.
     io.emit('messages', 'qr');
     qrcode.toDataURL(qr, (err, url) => {
-        io.emit('messages', url);
+        io.emit('qrcode', url);
     });
 });
 
