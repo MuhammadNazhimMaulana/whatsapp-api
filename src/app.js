@@ -84,6 +84,10 @@ client.on('qr', (qr) => {
     });
 });
 
+// Seperate Route
+const message_route = require('./api/routes/message-route');
+app.use('/message', message_route);
+
 // Port
 const PORT = process.env.PORT;
 server.listen(PORT, () => {
