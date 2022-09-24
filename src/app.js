@@ -27,13 +27,7 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }))
 
-// Method       : GET /
-// Access       : public
-// Description  : Tampilan Awal
-// app.get("/", (req, res) => {
-//     res.sendFile("index.html", { root: __dirname + "/public" })
-// });
-
+// Tampilan Awal
 app.get('/', (req, res) => {
     res.render('index', {
         layout: 'layouts/main',
@@ -68,6 +62,13 @@ client.on('ready', () => {
     console.log('READY');
 });
 
+// On Message
+client.on('message', message => {
+	if(message.body === '!ping') {
+		message.reply('Jawaban');
+	}
+});
+ 
 // Socket .io
 io.on('connection', (socket) => {
     console.log('Klien Terkoneksi...');
