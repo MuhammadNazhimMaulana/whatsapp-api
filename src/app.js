@@ -1,6 +1,7 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
+const fs = require('fs')
 const qrcode = require('qrcode');
 const http = require('http');
 const { Server }  = require('socket.io');
@@ -47,9 +48,25 @@ client.on('loading_screen', (percent, message) => {
     console.log('LOADING SCREEN', percent, message);
 });
 
-// Save session values to the file upon successful auth
+// Ketika Auth Berhasil
 client.on('authenticated', () => {
     console.log('Authentucated')
+});
+
+// Ketika Logout via hp
+client.on('disconnected', () => {
+    
+    // Information That Log out is happened
+    io.emit('messages', 'Keluar');
+
+    // delete directory recursively
+    fs.rm('./.wwebjs_auth/session/Default/Local Storage', { recursive: true }, err => {
+        if (err) {
+            throw err
+        }
+    
+        console.log(`dihapus is deleted!`)
+    });
 });
  
 
@@ -65,7 +82,7 @@ client.on('ready', () => {
 // On Message
 client.on('message', message => {
 	if(message.body === '!ping') {
-		message.reply('Jawaban');
+		message.reply('Ini Sisa kirim pesan via api');
 	}
 });
  
@@ -86,7 +103,12 @@ client.on('qr', (qr) => {
 
 // Seperate Route
 const message_route = require('./api/routes/message-route');
-app.use('/message', message_route);
+app.use('/message', (req, res, next) => {
+    // Prepating client
+    req.data_client = client;
+
+    next();
+},message_route);
 
 // Port
 const PORT = process.env.PORT;
