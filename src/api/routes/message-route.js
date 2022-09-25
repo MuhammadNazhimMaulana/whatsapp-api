@@ -12,4 +12,7 @@ router.use(auth)
 // Sending Message
 router.post('/', messageController.store)
 
+// Sending Message with picture
+router.post('/media', messageController.storePicture)
+
 module.exports = router;
