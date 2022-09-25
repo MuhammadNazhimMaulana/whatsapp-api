@@ -50,7 +50,8 @@ client.on('loading_screen', (percent, message) => {
 
 // Ketika Auth Berhasil
 client.on('authenticated', () => {
-    console.log('Authentucated')
+    console.log('Authenticated');
+    io.emit('messages', 'Authenticated');
 });
 
 // Ketika Logout via hp

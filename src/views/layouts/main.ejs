@@ -45,18 +45,20 @@
         $( document ).ready(function() {
             // Socket variable
             let socket = io.connect('http://localhost:3000');
-            
-            // socket.on('connect', function(data) {
-            //     socket.emit('join', 'Hello World from client');
-            // });
-    
+               
             // Getting Message
             socket.on('messages', function(messages) {
+              
+              // Hiding Qr COde
+              if(messages == 'Authenticated') $("#qr-wa").hide()
+
               $("#data").append(`${messages}<br>`);
             })
 
             // Getting Qr COde
             socket.on('qrcode', qr => {
+              // Showing Back QR code
+              $("#qr-wa").show()
               $("#qr-wa").append(qr).attr("src", qr)
             })
         });
