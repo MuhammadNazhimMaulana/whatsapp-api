@@ -28,6 +28,9 @@ app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }))
 
+// Variable for checking
+let userStatus = 'online';
+
 // Tampilan Awal
 app.get('/', (req, res) => {
     res.render('index', {
@@ -50,6 +53,10 @@ client.on('loading_screen', (percent, message) => {
 
 // Ketika Auth Berhasil
 client.on('authenticated', () => {
+    // Setting New Variable Value
+    userStatus = 'Authenticated';
+
+    // Sending Information
     console.log('Authenticated');
     io.emit('messages', 'Authenticated');
 });
@@ -108,6 +115,8 @@ app.use('/message', (req, res, next) => {
     // Prepating client
     req.data_client = client;
 
+    // Adding user status
+    req.status = userStatus;
     next();
 },message_route);
 

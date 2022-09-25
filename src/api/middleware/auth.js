@@ -3,9 +3,10 @@ const ResponseBulider = require('../helpers/responseBuilder');
 
 const auth = (req, res, next) => {
     const authHeader = req.headers.authorization;
+    const status = req.status;
 
     // If Auth Header is not exist
-    if (!authHeader) {
+    if (!authHeader || status != 'Authenticated') {
         return ResponseBulider.error(res, 401, 'Anda Belum Terautentikasi'); 
     }
 
