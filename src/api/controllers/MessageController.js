@@ -4,7 +4,7 @@ const ResponseBulider = require('../helpers/responseBuilder');
 class MessageController{
 
     // First Sending Data
-    index = async (req, res) => {
+    store = async (req, res) => {
         try {
             const { phone, message } = req.body;
             const client = req.data_client;

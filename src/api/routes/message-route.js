@@ -9,7 +9,7 @@ const messageController = new MessageController()
 // Adding Middleware
 router.use(auth)
 
-// Halaman Home
-router.post('/', messageController.index)
+// Sending Message
+router.post('/', messageController.store)
 
 module.exports = router;

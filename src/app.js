@@ -63,7 +63,9 @@ client.on('authenticated', () => {
 
 // Ketika Logout via hp
 client.on('disconnected', () => {
-    
+    // Setting New Variable Value
+    userStatus = 'online';
+
     // Information That Log out is happened
     io.emit('messages', 'Keluar');
 
