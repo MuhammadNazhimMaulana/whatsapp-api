@@ -77,6 +77,12 @@ client.on('disconnected', () => {
     
         console.log(`dihapus is deleted!`)
     });
+
+    // Destroying Client
+    client.destroy();
+    
+    // Initializing client again
+    client.initialize();
 });
  
 
