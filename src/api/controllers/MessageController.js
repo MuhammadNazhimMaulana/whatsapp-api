@@ -5,6 +5,21 @@ const ResponseBulider = require('../helpers/responseBuilder');
 const { MessageMedia } = require('whatsapp-web.js');
 class MessageController{
 
+    // Get Contact
+    contacts = async (req, res) => {
+        try {
+            const client = req.data_client;
+
+            // Getting Contacts
+            const contacts = await client.getContacts()
+            return ResponseBulider.success(res, contacts);
+
+        } catch (error) {
+            // If Error
+            return ResponseBulider.error(res, 500, error.message); 
+        }
+    }
+
     // First Sending Data
     store = async (req, res) => {
         try {

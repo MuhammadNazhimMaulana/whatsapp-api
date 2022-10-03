@@ -9,8 +9,12 @@ const messageController = new MessageController()
 // Adding Middleware
 router.use(auth)
 
+
 // Sending Message
 router.post('/', messageController.store)
+
+// Getting Contacts And Group
+router.post('/contacts', messageController.contacts)
 
 // Sending Message with picture
 router.post('/media', messageController.storePicture)
