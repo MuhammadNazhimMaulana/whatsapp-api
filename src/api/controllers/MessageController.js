@@ -19,6 +19,29 @@ class MessageController{
             return ResponseBulider.error(res, 500, error.message); 
         }
     }
+    
+    // Sending Group Chat
+    groupChat = async (req, res) => {
+        try {
+            const group_name = req.body.group_name;
+            const client = req.data_client;
+
+            // Getting chat
+            await client.getChats().then(async (chats) => {
+                const grup = chats.find((chat) => chat.name === group_name);
+
+                // Sending Message
+                const pesan = await grup.sendMessage('Pesan ini melalui API')
+                return ResponseBulider.success(res, pesan);
+
+            });
+
+        } catch (error) {
+            // If Error
+            return ResponseBulider.error(res, 500, error.message); 
+        }
+    }
+
 
     // First Sending Data
     store = async (req, res) => {
