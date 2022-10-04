@@ -12,4 +12,7 @@ router.use(auth)
 // Sending Group Chat
 router.post('/groupChat', messageGroupController.groupChat)
 
+// Update Group Description
+router.post('/udpateGroupDescription', messageGroupController.udpateGroupDescription)
+
 module.exports = router;
