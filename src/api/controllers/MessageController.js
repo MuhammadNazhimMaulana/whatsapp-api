@@ -23,7 +23,7 @@ class MessageController{
     // Sending Group Chat
     groupChat = async (req, res) => {
         try {
-            const group_name = req.body.group_name;
+            const { group_name, message} = req.body;
             const client = req.data_client;
 
             // Getting chat
@@ -31,7 +31,7 @@ class MessageController{
                 const grup = chats.find((chat) => chat.name === group_name);
 
                 // Sending Message
-                const pesan = await grup.sendMessage('Pesan ini melalui API')
+                const pesan = await grup.sendMessage(message)
                 return ResponseBulider.success(res, pesan);
 
             });
