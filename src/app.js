@@ -97,8 +97,8 @@ client.on('ready', () => {
 
 // On Message
 client.on('message', message => {
-	if(message.body === '!ping') {
-		message.reply('Ini Sisa kirim pesan via api');
+	if(message.body === '!test') {
+		message.reply('This is just a test');
 	}
 });
  
@@ -119,6 +119,7 @@ client.on('qr', (qr) => {
 
 // Seperate Route
 const message_route = require('./api/routes/message-route');
+const message_group_route = require('./api/routes/message-group-route');
 app.use('/message', (req, res, next) => {
     // Prepating client
     req.data_client = client;
@@ -126,7 +127,7 @@ app.use('/message', (req, res, next) => {
     // Adding user status
     req.status = userStatus;
     next();
-},message_route);
+},message_route, message_group_route);
 
 // Port
 const PORT = process.env.PORT;

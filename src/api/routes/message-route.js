@@ -14,10 +14,7 @@ router.use(auth)
 router.post('/', messageController.store)
 
 // Getting Contacts And Group
-router.post('/contacts', messageController.contacts)
-
-// Sending Group Chat
-router.post('/groupChat', messageController.groupChat)
+router.get('/contacts', messageController.contacts)
 
 // Sending Message with picture
 router.post('/media', messageController.storePicture)
