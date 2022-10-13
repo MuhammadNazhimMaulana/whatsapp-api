@@ -19,6 +19,21 @@ class MessageController{
             return ResponseBulider.error(res, 500, error.message); 
         }
     }
+    
+    // Getting All chats
+    chats = async (req, res) => {
+        try {
+            const client = req.data_client;
+
+            // Getting Contacts
+            const chats = await client.getChats()
+            return ResponseBulider.success(res, chats);
+
+        } catch (error) {
+            // If Error
+            return ResponseBulider.error(res, 500, error.message); 
+        }
+    }
 
     // First Sending Data
     store = async (req, res) => {

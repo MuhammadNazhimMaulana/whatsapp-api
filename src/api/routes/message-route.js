@@ -10,11 +10,14 @@ const messageController = new MessageController()
 router.use(auth)
 
 
-// Sending Message
-router.post('/', messageController.store)
-
 // Getting Contacts And Group
 router.get('/contacts', messageController.contacts)
+
+// Getting Chats
+router.get('/chats', messageController.chats)
+
+// Sending Message
+router.post('/', messageController.store)
 
 // Sending Message with picture
 router.post('/media', messageController.storePicture)
