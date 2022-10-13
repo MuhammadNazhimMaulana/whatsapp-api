@@ -19,6 +19,22 @@ class MessageController{
             return ResponseBulider.error(res, 500, error.message); 
         }
     }
+
+    // Get Contact BY id
+    findContact = async (req, res) => {
+        try {
+            const client = req.data_client;
+            const id = req.body.ContactId._serialized;
+
+            // Getting Contact
+            const contact = await client.getContactById(id)
+            return ResponseBulider.success(res, contact);
+            
+        } catch (error) {
+            // If Error
+            return ResponseBulider.error(res, 500, error.message); 
+        }
+    }
     
     // Getting All chats
     chats = async (req, res) => {

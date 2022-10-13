@@ -13,6 +13,9 @@ router.use(auth)
 // Getting Contacts And Group
 router.get('/contacts', messageController.contacts)
 
+// Finding Contact
+router.post('/contacts', messageController.findContact)
+
 // Getting Chats
 router.get('/chats', messageController.chats)
 
