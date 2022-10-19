@@ -19,6 +19,9 @@ router.post('/contacts', messageController.findContact)
 // Getting Chats
 router.get('/chats', messageController.chats)
 
+// Finding Contact
+router.post('/chat', messageController.findChat)
+
 // Sending Message
 router.post('/', messageController.store)
 
