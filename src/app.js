@@ -98,7 +98,7 @@ client.on('ready', () => {
 // On Message
 client.on('message', message => {
 	if(message.body === '!test') {
-		message.reply('This is just a test');
+		message.reply('Halo Banh');
 	}
 });
  
