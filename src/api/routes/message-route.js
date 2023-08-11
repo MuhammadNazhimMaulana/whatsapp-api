@@ -28,4 +28,7 @@ router.post('/', messageController.store)
 // Sending Message with picture
 router.post('/media', messageController.storePicture)
 
+// Sending Message with Location
+router.post('/location', messageController.sendLocation)
+
 module.exports = router;

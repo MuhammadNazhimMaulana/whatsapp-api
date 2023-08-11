@@ -2,7 +2,7 @@
 const ResponseBulider = require('../helpers/responseBuilder');
 
 // Message Media
-const { MessageMedia } = require('whatsapp-web.js');
+const { MessageMedia, Location } = require('whatsapp-web.js');
 class MessageController{
 
     // Get Contact
@@ -124,6 +124,39 @@ class MessageController{
             
         } catch (error) {
             // If Error
+            return ResponseBulider.error(res, 500, error.message); 
+        }
+    }
+
+    // Send Location
+    sendLocation = async (req, res) => {
+        try {
+            const { phone, message, longitude, latitude } = req.body;
+            const client = req.data_client;
+
+            // Checking Phone Number
+            if(!phone){
+                // Return 
+                return ResponseBulider.error(res, 422, "Nomor Hp Tidak Boleh Kosong");   
+            }
+
+            // Getting id of number
+            const number_details = await client.getNumberId(phone);
+
+            // Sending message
+            if (number_details) {
+                // Preparing Media (using url)
+                const media = new Location(Number(longitude), Number(latitude), message);
+
+                const result = await client.sendMessage(number_details._serialized, media)
+                return ResponseBulider.success(res, result);
+            } else {
+                return ResponseBulider.error(res, 422, 'Nomor Yang Dimasukkan tidak ditemukan'); 
+            }
+            
+        } catch (error) {
+            // If Error
+            console.log(error.message)
             return ResponseBulider.error(res, 500, error.message); 
         }
     }

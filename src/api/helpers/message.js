@@ -8,7 +8,8 @@ index = (message) => {
         }else if(message.body === 'zim'){
             message.reply('Ada apa nih tiba-tiba memanggil mas bro?');
         }else{
-            message.reply('Tunggu dia muncul ya mas bro');
+            // message.reply('Tunggu dia muncul ya mas bro');
+            console.log("other");
         }
     } catch (error) {
         console.log(error)
