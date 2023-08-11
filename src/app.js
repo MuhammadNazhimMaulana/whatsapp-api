@@ -5,6 +5,7 @@ const fs = require('fs')
 const qrcode = require('qrcode');
 const http = require('http');
 const { Server }  = require('socket.io');
+const pesan  = require('../src/api/helpers/message');
 
 // WA Web
 const { Client, LocalAuth } = require('whatsapp-web.js');
@@ -97,9 +98,7 @@ client.on('ready', () => {
 
 // On Message
 client.on('message', message => {
-	if(message.body === '!test') {
-		message.reply('Halo Banh');
-	}
+    pesan.index(message);
 });
  
 // Socket .io
