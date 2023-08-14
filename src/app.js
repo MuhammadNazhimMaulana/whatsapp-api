@@ -42,13 +42,7 @@ app.get('/', (req, res) => {
 
 // Use the saved values
 const client = new Client({
-    puppeteer: {
-        headless: true,
-        args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox'
-        ]
-    },
+    puppeteer: { headless: true },
     authStrategy: new LocalAuth()
 });
 
@@ -136,9 +130,6 @@ app.use('/message', (req, res, next) => {
 
 // Port
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server Jalan di http://localhost:${PORT}`)
 })
-
-// Export App
-module.exports = app;

@@ -2,11 +2,11 @@
   "name": "whatsapp-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js --trace-warnings",
-    "dev": "nodemon src/index.js"
+    "start": "node src/app.js --trace-warnings",
+    "dev": "nodemon src/app.js"
   },
   "keywords": [],
   "author": "",
