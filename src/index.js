@@ -136,6 +136,9 @@ app.use('/message', (req, res, next) => {
 
 // Port
 const PORT = process.env.PORT;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server Jalan di http://localhost:${PORT}`)
 })
+
+// Export App
+module.exports = app;
